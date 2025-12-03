@@ -23,7 +23,7 @@ const Banner = () => {
   if (loading) return <Loader></Loader>;
 
   return (
-    <div className="relative h-[300px] sm:h-[350px] md:h-[600px] overflow-hidden">
+    <div className="relative h-[300px]  md:h-[400px] max-w-11/12 mx-auto overflow-hidden">
       <AnimatePresence>
         {skills.length > 0 && (
           <motion.div

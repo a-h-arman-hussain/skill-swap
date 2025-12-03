@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../assets/logo.png";
 import userProfile from "../assets/user.png";
@@ -10,6 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
     logOut()
@@ -25,8 +26,8 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/my-profile" className="text-cyan-500 font-bold">
-          My Profile
+        <NavLink to="/all-skills" className="text-cyan-500 font-bold">
+          All Skills
         </NavLink>
       </li>
       <li>
@@ -34,18 +35,23 @@ const NavBar = () => {
           About
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/contact" className="text-cyan-500 font-bold">
+          Contact
+        </NavLink>
+      </li>
     </>
   );
 
   return (
     <>
-      <div className="navbar bg-base-100 shadow-md fixed top-0 left-0 w-full z-[999]">
+      <div className="navbar max-w-11/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost lg:hidden text-cyan-500"
+              className="lg:hidden text-cyan-500 mr-2 cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +70,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1000] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-cyan-100/70 border-2 border-cyan-500 rounded-box mt-6 w-52 p-2 shadow"
             >
               {navLinks}
             </ul>
@@ -116,19 +122,71 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
 
-        <div className="navbar-end gap-4 flex items-center">
+        <div className="navbar-end">
           {user ? (
-            <div className="relative group">
+            <div className="relative">
+              {/* Profile Image */}
               <img
+                onClick={() => setOpen((prev) => !prev)}
                 className="h-10 w-10 rounded-full cursor-pointer"
                 src={user.photoURL || userProfile}
                 alt="User"
               />
 
-              <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg p-3 text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                <p className="font-semibold">{user.displayName || "User"}</p>
-                <p className="text-sm">{user.email}</p>
-              </div>
+              {/* Dropdown */}
+              {open && (
+                <div className="absolute right-0 mt-3 w-56 shadow-lg rounded-lg p-4 z-50 bg-cyan-100/70 border-2 border-cyan-500">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={user.photoURL || userProfile}
+                      className="h-10 w-10 rounded-full border border-cyan-700"
+                      alt="profile"
+                    />
+                    <div className="w-[150px] overflow-hidden">
+                      <p className="font-semibold text-cyan-700 truncate">
+                        {user.displayName || "User"}
+                      </p>
+
+                      <p className="text-sm text-cyan-900 truncate whitespace-nowrap">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 border-t pt-3 space-y-2">
+                    <NavLink
+                      to="/my-profile"
+                      className={({ isActive }) =>
+                        `block text-sm px-2 py-1 rounded-md transition font-semibold ${
+                          isActive
+                            ? "bg-cyan-300 text-cyan-900"
+                            : "text-cyan-600 hover:bg-cyan-50"
+                        }`
+                      }
+                    >
+                      View Profile
+                    </NavLink>
+
+                    <motion.button
+                      onClick={handleLogout}
+                      className="text-white border-0 w-full font-semibold bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 bg-[length:200%_200%] px-2 py-1 rounded-md"
+                      animate={{
+                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                      }}
+                      transition={{
+                        duration: 5,
+                        ease: "linear",
+                        repeat: Infinity,
+                      }}
+                    >
+                      <span className="flex items-center gap-1">
+                        <FiLogOut />
+                        Logout
+                      </span>
+                    </motion.button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <motion.div
@@ -157,26 +215,6 @@ const NavBar = () => {
                 </span>
               </Link>
             </motion.div>
-          )}
-
-          {user && (
-            <motion.button
-              onClick={handleLogout}
-              className="btn text-white border-0 font-semibold bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 bg-[length:200%_200%]"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{
-                duration: 5,
-                ease: "linear",
-                repeat: Infinity,
-              }}
-            >
-              <span className="flex justify-center items-center gap-1">
-                <FiLogOut />
-                Logout
-              </span>
-            </motion.button>
           )}
         </div>
       </div>

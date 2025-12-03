@@ -13,6 +13,7 @@ import Error from "../Pages/Error";
 import SkillDetails from "../Pages/SkillDetails";
 import PrivetRoute from "../Provider/PrivetRoute";
 import ForgetPass from "../Pages/ForgetPass";
+import ContactPage from "../Pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -23,13 +24,10 @@ const router = createBrowserRouter([
       { path: "/my-profile", Component: MyProfile },
       { path: "/about", Component: About },
       { path: "/all-skills", Component: AllSkills },
+      { path: "/contact", Component: ContactPage },
       {
         path: "/skill-details/:skillId",
-        element: (
-          <PrivetRoute>
-            <SkillDetails></SkillDetails>
-          </PrivetRoute>
-        ),
+        Component: SkillDetails,
       },
     ],
   },

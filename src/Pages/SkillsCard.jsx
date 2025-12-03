@@ -13,8 +13,8 @@ const SkillsCard = () => {
   const topSkills = skills.slice(0, 8);
 
   return (
-    <div className="flex justify-center py-3">
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-11/12 mx-auto">
         {topSkills.map((skill) => (
           <SkillCard key={skill.skillId} skill={skill}></SkillCard>
         ))}

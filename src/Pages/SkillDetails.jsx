@@ -11,8 +11,8 @@ const SkillDetails = () => {
   const { skillId } = useParams();
   const { skills, loading, error } = useCard();
 
-  if (loading) return <Loader></Loader>;
-  if (error) return <Error></Error>;
+  if (loading) return <Loader />;
+  if (error) return <Error />;
 
   const skill = skills.find((s) => s.skillId === Number(skillId));
 
@@ -43,45 +43,93 @@ const SkillDetails = () => {
     slotsAvailable,
     image,
     category,
+    duration,
+    level,
+    language,
+    features,
   } = skill;
 
   return (
     <div className="py-16 px-6 md:px-20 bg-gray-50 min-h-screen">
-      <title>Skill Swap | Skill Details</title>
-      <section className="flex flex-col md:flex-row items-start justify-center gap-10">
-        {/* Image Section */}
+      <title>Skill Swap | {skillName}</title>
+
+      <section className="flex flex-col md:flex-row items-start justify-center gap-12">
+        {/* Image */}
         <div className="w-full md:w-1/2">
           <img
             src={image}
             alt={skillName}
-            className="rounded-2xl shadow-lg w-full object-cover"
+            className="rounded-2xl shadow-xl w-full object-cover border-4 border-cyan-200"
           />
         </div>
 
-        {/* Details & Form Section */}
+        {/* Content */}
         <div className="w-full md:w-1/2 space-y-6">
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-cyan-600">{skillName}</h1>
-            <p className="text-lg text-gray-700">
-              By <span className="font-semibold">{providerName}</span>
-            </p>
-            <p className="text-gray-600">📧 {providerEmail}</p>
-            <p className="text-gray-700 leading-relaxed">{description}</p>
+          {/* Title & Category */}
+          <div>
+            <span className="px-4 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm font-semibold">
+              {category}
+            </span>
 
-            <div className="flex items-center gap-2">
-              <FaStar className="text-yellow-400" />
-              <span className="font-semibold">{rating}</span>
-            </div>
-            <p className="text-lg font-semibold text-cyan-600">
-              💰 Price: ${price}
-            </p>
-            <p className="text-gray-700">
-              🧑‍🎓 Slots Available: {slotsAvailable}
-            </p>
-            <p className="text-gray-700">📂 Category: {category}</p>
+            <h1 className="text-4xl font-bold text-cyan-700 mt-3">
+              {skillName}
+            </h1>
+
+            <p className="mt-2 text-gray-600">{description}</p>
           </div>
 
-          {/* Book Session Form */}
+          {/* Rating */}
+          <div className="flex items-center gap-2">
+            <FaStar className="text-yellow-400 text-xl" />
+            <span className="font-semibold text-lg">{rating} / 5</span>
+          </div>
+
+          {/* Price, Slots, Level */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-white rounded-xl shadow">
+              <p className="text-cyan-600 text-lg font-semibold">${price}</p>
+              <p className="text-sm text-gray-600">Price</p>
+            </div>
+
+            <div className="p-4 bg-white rounded-xl shadow">
+              <p className="font-semibold">{slotsAvailable}</p>
+              <p className="text-sm text-gray-600">Slots Available</p>
+            </div>
+
+            <div className="p-4 bg-white rounded-xl shadow">
+              <p className="font-semibold capitalize">{level}</p>
+              <p className="text-sm text-gray-600">Skill Level</p>
+            </div>
+
+            <div className="p-4 bg-white rounded-xl shadow">
+              <p className="font-semibold">{duration}</p>
+              <p className="text-sm text-gray-600">Duration</p>
+            </div>
+          </div>
+
+          {/* Features List */}
+          {features && (
+            <div className="bg-white shadow p-5 rounded-xl">
+              <h3 className="font-bold text-lg mb-2 text-cyan-700">
+                What You'll Learn
+              </h3>
+              <ul className="list-disc ml-6 text-gray-700 space-y-1">
+                {features.map((f, i) => (
+                  <li key={i}>{f}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Provider Info */}
+          <div className="bg-white shadow p-5 rounded-xl">
+            <h3 className="font-bold text-lg text-cyan-700">Instructor</h3>
+            <p className="font-semibold">{providerName}</p>
+            <p className="text-gray-600">📧 {providerEmail}</p>
+            <p className="text-gray-600">🌐 Language: {language}</p>
+          </div>
+
+          {/* Booking Form */}
           <div className="card bg-base-100 w-full shadow-2xl p-6">
             <h2 className="text-xl font-bold mb-4">Book Session</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -89,30 +137,32 @@ const SkillDetails = () => {
                 <label className="label">Name</label>
                 <input
                   type="text"
-                  name="name"
                   className="input input-bordered w-full"
                   placeholder="Enter your name"
                   required
                 />
               </div>
+
               <div>
                 <label className="label">Email</label>
                 <input
                   type="email"
-                  name="email"
                   className="input input-bordered w-full"
                   placeholder="Enter your email"
                   required
                 />
               </div>
+
               <button
                 type="submit"
-                className="btn bg-cyan-500 text-white w-full mt-2"
+                className="btn bg-cyan-500 text-white w-full"
               >
-                Submit
+                Book Now
               </button>
             </form>
           </div>
+
+          {/* Back Button */}
           <motion.div
             style={{
               borderRadius: "0.375rem",

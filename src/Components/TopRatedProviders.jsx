@@ -12,7 +12,7 @@ const TopRatedProviders = () => {
   if (error)
     return (
       <p className="text-center text-red-500 font-semibold my-6">
-        Failed to load data😢
+        Failed to load data
       </p>
     );
 

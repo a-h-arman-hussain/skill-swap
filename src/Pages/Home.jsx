@@ -31,7 +31,7 @@ const Home = () => {
       </p>
 
       <SkillsCard></SkillsCard>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-5">
         <motion.div
           style={{
             borderRadius: "0.375rem",
