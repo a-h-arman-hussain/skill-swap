@@ -40,6 +40,11 @@ const NavBar = () => {
           Contact
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/blog" className="text-cyan-500 font-bold">
+          Blog
+        </NavLink>
+      </li>
     </>
   );
 

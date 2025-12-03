@@ -14,6 +14,7 @@ import SkillDetails from "../Pages/SkillDetails";
 import PrivetRoute from "../Provider/PrivetRoute";
 import ForgetPass from "../Pages/ForgetPass";
 import ContactPage from "../Pages/Contact";
+import Blog from "../Pages/Blog";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/about", Component: About },
       { path: "/all-skills", Component: AllSkills },
       { path: "/contact", Component: ContactPage },
+      { path: "/blog", Component: Blog },
       {
         path: "/skill-details/:skillId",
         Component: SkillDetails,

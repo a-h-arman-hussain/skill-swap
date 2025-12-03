@@ -30,14 +30,10 @@ const Footer = () => {
         <Link to="/contact" className="link link-hover">
           Contact
         </Link>
+        <Link to="/blog" className="link link-hover">
+          Blog
+        </Link>
       </nav>
-      {/* <nav>
-        <h6 className="footer-title">Company</h6>
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
-      </nav> */}
       <nav>
         <h6 className="footer-title">Follow Us</h6>
         <div className="flex justify-center items-center gap-2">
